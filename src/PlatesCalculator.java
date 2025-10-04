@@ -1,11 +1,9 @@
 import java.util.List;
+import java.util.Map;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Arrays;
 
-class MaxPlatesReachedException extends Exception {
-	MaxPlatesReachedException(String msg) {
-		super(msg);
-	}
-}
 
 abstract class GymEquipment {
 	private final Double WEIGHT;
@@ -113,5 +111,21 @@ class HandleTestDrive {
 			System.out.println(e.toString());
 			barbell.detailWeight();
 		}
+	}
+}
+
+public class PlatesCalculator {
+	public static void main(String[] args){
+		
+		System.out.println("Write any thing:");
+		try {
+			double[] inputs = Utils.parsePlatesEntry();
+			System.out.println("Your input: " + Arrays.toString(inputs));
+		} catch (InvalidInputException e) {
+			System.out.println(e.getMessage());
+			System.out.println("Input should be comma seperated pair of PlateWeight(Kg),Count.\nExample: 5,2 // Two 5 Kg plates");
+		}
+
+
 	}
 }
