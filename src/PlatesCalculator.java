@@ -102,6 +102,7 @@ public class PlatesCalculator {
 	private Handle handle;
 
 	public static void main(String[] args){
+		Utils.printWelcomeBanner();
 		PlatesCalculator calc = new PlatesCalculator();
 		calc.buildInventory();
 		
