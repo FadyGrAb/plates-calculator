@@ -33,6 +33,15 @@ class Plate extends GymEquipment {
 	public String toString() {
 		return "Plate: " + getWeight() + " Kg";
 	}
+
+	public boolean equals(Object o) {
+		Plate other = (Plate) o;
+		return getWeight().doubleValue() == other.getWeight().doubleValue();
+	}
+
+	public int hashCode(){
+		return Double.hashCode(getWeight());
+	}
 }
 
 class Handle extends GymEquipment {
