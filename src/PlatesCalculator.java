@@ -86,6 +86,18 @@ class Handle extends GymEquipment {
 }
 	
 public class PlatesCalculator {
+	// TODO write getUserCommand and showMenu methods
+	// getUserCommand -> execute what the user wants.
+	// showMainMenu:
+	// 	[1] Build Inventory
+	// 	[2] Add Handle
+	// 	[3] Cacluate
+	// 	[4] Exit
+	//
+	// showBuildInventory:
+	// 	[1] Add/Modify
+	// 	[2] Remove
+	// 	[3] Done
 	private Map<Plate, Integer> inventory = new HashMap<>();
 	private Handle handle;
 
