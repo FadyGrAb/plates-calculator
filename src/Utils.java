@@ -7,9 +7,8 @@ public class Utils {
 		return s.nextLine();
 	}
 
-	public static double[] parsePlatesEntry() throws InvalidInputException {
-		String stdinLine = Utils.getStdin();
-		String[] tokens = stdinLine
+	public static double[] parsePlatesEntry(String userInput) throws InvalidInputException {
+		String[] tokens = userInput
 					.replaceAll(" ", "")
 					.split(",");
 

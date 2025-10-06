@@ -86,14 +86,6 @@ class Handle extends GymEquipment {
 }
 	
 public class PlatesCalculator {
-	// TODO write getUserCommand and showMenu methods
-	// getUserCommand -> execute what the user wants.
-	// showMainMenu:
-	// 	[1] Build Inventory
-	// 	[2] Add Handle
-	// 	[3] Cacluate
-	// 	[4] Exit
-	//
 	// showBuildInventory:
 	// 	[1] Add/Modify
 	// 	[2] Remove
@@ -142,14 +134,19 @@ public class PlatesCalculator {
 	}
 
 	private void buildInventory() {
-		boolean inputComplete = false;
+		boolean isAlive = true;
+		String[] inventoryMenu = {
+			"Add/Modify",
+			"Remove",
+			"Done",
+		};
 
-		System.out.println("Build plates inventory:");
-
-		while(!inputComplete){
+		while(isAlive){
+			int userInput = Utils.showMenu("Building plates inventory", inventoryMenu, "Choose an option to continue");
 			System.out.print("New plate (weight Kg, count): ");
 			try {
-				double[] plateEntry = Utils.parsePlatesEntry();
+				String platesInput = Utils.getStdin();
+				double[] plateEntry = Utils.parsePlatesEntry(platesInput);
 				Plate newPlate = new Plate(plateEntry[0]);
 				Integer plateCount = (int) plateEntry[1];
 				addPlateToInventory(newPlate, plateCount); 
