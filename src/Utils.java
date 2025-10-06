@@ -46,6 +46,35 @@ public class Utils {
 
 		System.out.println(banner);
 	}
+
+	public static int showMenu(String menuTitle, String[] menuItems, String menuPrompt) {
+		System.out.println(menuTitle + ":\n");
+
+		for(int i = 0; i < menuItems.length; i++) {
+			System.out.println(String.format("\t[%d] %s", i + 1, menuItems[i]));
+		}
+
+		boolean haveValidresponse = false;
+		int response = 0;
+
+		while (!haveValidresponse) {
+			System.out.print(menuPrompt + ": ");
+			String input = Utils.getStdin();
+			try {
+				response = Integer.parseInt(input.strip());
+				if (response >= 1 && response <= menuItems.length) {
+					break;
+				}
+
+				System.out.println("Your input is invalid. Please choose a number between 1 and " + menuItems.length + ".");
+			} catch (NumberFormatException e) {
+				System.out.println("This isn't a valid number.");
+			}
+		}
+
+
+		return response - 1;
+	}
 		
 
 	

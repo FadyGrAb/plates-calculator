@@ -102,10 +102,35 @@ public class PlatesCalculator {
 	private Handle handle;
 
 	public static void main(String[] args){
-		Utils.printWelcomeBanner();
 		PlatesCalculator calc = new PlatesCalculator();
-		calc.buildInventory();
-		
+		boolean isAlive = true;
+		String[] mainMenuItems = {
+			"Build Inventory",
+			"Add Handle",
+			"Calculate",
+			"Exit",
+		};
+
+		Utils.printWelcomeBanner();
+		while (isAlive) {
+			int mainMenuOption = Utils.showMenu("Choose an option to begin", mainMenuItems, "Choose an option");
+
+			switch (mainMenuOption) {
+				case 0:
+					calc.buildInventory();
+					break;
+				case 1:
+					System.out.println(">>>>>>>" + mainMenuItems[1]);
+					break;
+				case 2:
+					System.out.println(">>>>>>>" + mainMenuItems[2]);
+					break;
+				case 3:
+					System.out.println("Exiting...");
+					isAlive = false;
+					break;
+			}			
+		}
 	}
 
 	public void setHandle(double ownWeight, double maxPlatesCount) {
