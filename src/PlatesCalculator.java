@@ -31,7 +31,7 @@ class Plate extends GymEquipment {
 	}
 
 	public String toString() {
-		return "Plate: " + getWeight() + " Kg";
+		return "Plate -> " + getWeight() + " Kg";
 	}
 
 	public boolean equals(Object o) {
@@ -149,7 +149,7 @@ public class PlatesCalculator {
 					addPlatesToInventory();
 					break;
 				case 1:
-					System.out.println("Removing plates");
+					removePlateFromInventory();
 					break;
 				case 2:
 					printInventory();
@@ -188,6 +188,31 @@ public class PlatesCalculator {
 		}
 			
 	}
+
+	private void removePlateFromInventory() {
+		boolean isAlive = true;
+		System.out.println("Type the plate weight in Kg to remove. Type 'done' to finish.");
+
+		while(isAlive) {
+			System.out.print("Weight in Kg: ");
+			String userInput = Utils.getStdin();
+
+			if (!userInput.toLowerCase().equals("done")) {
+				try {
+					Plate plateToRemove = new Plate(Double.parseDouble(userInput.strip()));
+					if (inventory.remove(plateToRemove) == null) {
+						System.out.println("You don't have this plate in your inventory!");
+					} else {
+						System.out.println(plateToRemove + " is removed");
+					}
+				} catch (NumberFormatException e) {
+				       System.out.println("This ins't a valid number");
+				}
+			} else {
+				isAlive = false;
+			}
+		}
+	}		
 
 	public Map<Plate, Integer> getInventory() {
 		return inventory;
