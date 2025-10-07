@@ -47,7 +47,7 @@ public class Utils {
 	}
 
 	public static int showMenu(String menuTitle, String[] menuItems, String menuPrompt) {
-		System.out.println(menuTitle + ":\n");
+		System.out.println("\n" + menuTitle + ":");
 
 		for(int i = 0; i < menuItems.length; i++) {
 			System.out.println(String.format("\t[%d] %s", i + 1, menuItems[i]));
