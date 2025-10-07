@@ -1,23 +1,23 @@
 class InvalidInputException extends Exception {
-	InvalidInputException(String msg){
-		super(msg);
-	}
+  InvalidInputException(String msg) {
+    super(msg);
+  }
 }
 
 class TooManyInputParametersException extends InvalidInputException {
-	TooManyInputParametersException(String msg) {
-		super(msg);
-	}
+  TooManyInputParametersException(String msg) {
+    super(msg);
+  }
 }
 
 class TooLittleInputParametersException extends InvalidInputException {
-	TooLittleInputParametersException(String msg) {
-		super(msg);
-	}
+  TooLittleInputParametersException(String msg) {
+    super(msg);
+  }
 }
 
 class MaxPlatesReachedException extends Exception {
-	MaxPlatesReachedException(String msg) {
-		super(msg);
-	}
+  MaxPlatesReachedException(String msg) {
+    super(msg);
+  }
 }
