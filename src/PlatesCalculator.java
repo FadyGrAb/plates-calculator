@@ -86,10 +86,6 @@ class Handle extends GymEquipment {
 }
 	
 public class PlatesCalculator {
-	// showBuildInventory:
-	// 	[1] Add/Modify
-	// 	[2] Remove
-	// 	[3] Done
 	private Map<Plate, Integer> inventory = new HashMap<>();
 	private Handle handle;
 
@@ -112,12 +108,14 @@ public class PlatesCalculator {
 					calc.buildInventory();
 					break;
 				case 1:
+					// TODO add handles logs
 					System.out.println(">>>>>>>" + mainMenuItems[1]);
 					break;
 				case 2:
 					System.out.println(">>>>>>>" + mainMenuItems[2]);
 					break;
 				case 3:
+					// TODO handle ctrl+c
 					System.out.println("Exiting...");
 					isAlive = false;
 					break;
