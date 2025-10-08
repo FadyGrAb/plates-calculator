@@ -59,8 +59,8 @@ class Handle extends GymEquipment {
     this.type = type;
   }
 
-  public static <T extends Number> Handle createNew(T weight, T maxPlates) {
-    return new Handle(weight.doubleValue(), maxPlates.doubleValue());
+  public static <T extends Number> Handle createNew(HandleType type, T weight, T maxPlates) {
+    return new Handle(type, weight.doubleValue(), maxPlates.doubleValue());
   }
 
   public void addPlate(Plate plate) throws MaxPlatesReachedException {
@@ -127,8 +127,8 @@ public class PlatesCalculator {
     }
   }
 
-  public void setHandle(double ownWeight, double maxPlatesCount) {
-    handle = new Handle(ownWeight, maxPlatesCount);
+  public void setHandle(HandleType type, double ownWeight, double maxPlatesCount) {
+    handle = new Handle(type, ownWeight, maxPlatesCount);
   }
 
   public Handle getHandle() {
@@ -136,8 +136,11 @@ public class PlatesCalculator {
   }
 
   private void addHandle() {
+    // TODO complete add handle logic
     boolean isAlive = true;
-    System.out.println("\n
+    System.out.println("\n");
+  }
+
   private void buildInventory() {
     boolean isAlive = true;
     String[] inventoryMenu = {
