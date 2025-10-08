@@ -4,18 +4,18 @@ import java.util.List;
 import java.util.Map;
 
 abstract class GymEquipment {
-  private final Double WEIGHT;
+  private final Double weight;
 
   public GymEquipment(int weight) {
-    WEIGHT = (double) weight;
+    this.weight = (double) weight;
   }
 
   public GymEquipment(double weight) {
-    WEIGHT = weight;
+    this.weight = weight;
   }
 
   public Double getWeight() {
-    return WEIGHT;
+    return weight;
   }
 }
 
@@ -42,13 +42,21 @@ class Plate extends GymEquipment {
   }
 }
 
-class Handle extends GymEquipment {
-  private final Double MAX_PlATES_COUNT_ONE_SIDE;
-  private List<Plate> plates = new ArrayList<>();
+enum HandleType {
+  BARBELL,
+  DUMBBELL,
+}
 
-  Handle(double weight, double maxPlates) {
+
+class Handle extends GymEquipment {
+  private final Double maxPlatesCountOneSided;
+  private List<Plate> plates = new ArrayList<>();
+  private final HandleType type;
+
+  Handle(HandleType type, double weight, double maxPlates) {
     super(weight);
-    MAX_PlATES_COUNT_ONE_SIDE = maxPlates;
+    maxPlatesCountOneSided = maxPlates;
+    this.type = type;
   }
 
   public static <T extends Number> Handle createNew(T weight, T maxPlates) {
@@ -56,7 +64,7 @@ class Handle extends GymEquipment {
   }
 
   public void addPlate(Plate plate) throws MaxPlatesReachedException {
-    if (plates.size() + 1 > MAX_PlATES_COUNT_ONE_SIDE) {
+    if (plates.size() + 1 > maxPlatesCountOneSided) {
       throw new MaxPlatesReachedException(
           "Can't add more plates. You have now " + plates.size() * 2 + " plates.");
     }
@@ -75,7 +83,7 @@ class Handle extends GymEquipment {
 
   public void detailWeight() {
     System.out.println("Own weigth: " + getWeight() + " Kg");
-    System.out.println("Max plates count: " + MAX_PlATES_COUNT_ONE_SIDE);
+    System.out.println("Max plates count: " + maxPlatesCountOneSided);
     for (Plate plate : plates) {
       System.out.println(plate + " x2");
     }
@@ -103,10 +111,11 @@ public class PlatesCalculator {
           calc.buildInventory();
           break;
         case 1:
-          // TODO add handles logs
+          // TODO add handles logic
           System.out.println(">>>>>>>" + mainMenuItems[1]);
           break;
         case 2:
+          // TODO Dynamic programming to get weights logic
           System.out.println(">>>>>>>" + mainMenuItems[2]);
           break;
         case 3:
@@ -126,6 +135,9 @@ public class PlatesCalculator {
     return handle;
   }
 
+  private void addHandle() {
+    boolean isAlive = true;
+    System.out.println("\n
   private void buildInventory() {
     boolean isAlive = true;
     String[] inventoryMenu = {
@@ -141,7 +153,7 @@ public class PlatesCalculator {
           addPlatesToInventory();
           break;
         case 1:
-          removePlateFromInventory();
+          removePlatesFromInventory();
           break;
         case 2:
           printInventory();
@@ -181,7 +193,7 @@ public class PlatesCalculator {
     }
   }
 
-  private void removePlateFromInventory() {
+  private void removePlatesFromInventory() {
     boolean isAlive = true;
     System.out.println("\nType the plate weight in Kg to remove. Type 'done' to finish.");
 
