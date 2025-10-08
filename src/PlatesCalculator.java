@@ -134,7 +134,7 @@ public class PlatesCalculator {
   private void addHandle() {
     // TODO complete add handle logic
     boolean isAlive = true;
-    System.out.println("\n");
+    System.out.println("\nAdd your Barbell or Dumbbell:");
   }
 
   private void buildInventory() {
