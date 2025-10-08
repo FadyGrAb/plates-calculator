@@ -148,20 +148,18 @@ public class PlatesCalculator {
           Utils.showMenu(
               "Building plates inventory", inventoryMenu, "Enter a choice number");
       switch (userInput) {
-        case 0:
-          addPlatesToInventory();
-          break;
-        case 1:
-          removePlatesFromInventory();
-          break;
-        case 2:
-          printInventory();
-          break;
-        case 3:
+        // Add/Modify plates
+        case 0 -> addPlatesToInventory();
+        // Remove
+        case 1 -> removePlatesFromInventory();
+        // View
+        case 2 -> printInventory();
+        // Done
+        case 3 -> {
           System.out.println("\nBuilding Plates inventory is completed");
           printInventory();
           isAlive = false;
-          break;
+        }
       }
     }
   }
