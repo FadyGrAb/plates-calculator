@@ -107,22 +107,18 @@ public class PlatesCalculator {
       int mainMenuOption = Utils.showMenu("Plates Calculator", mainMenuItems, "Enter a choice number");
 
       switch (mainMenuOption) {
-        case 0:
-          calc.buildInventory();
-          break;
-        case 1:
-          // TODO add handles logic
-          System.out.println(">>>>>>>" + mainMenuItems[1]);
-          break;
-        case 2:
-          // TODO Dynamic programming to get weights logic
-          System.out.println(">>>>>>>" + mainMenuItems[2]);
-          break;
-        case 3:
-          // TODO handle ctrl+c
+        // Build Inventory
+        case 0 -> calc.buildInventory();
+        // TODO Add Handle
+        case 1 -> System.out.println(">>>>>>>" + mainMenuItems[1]);
+        // TODO Calculate (Dynamic Programing)
+        case 2 -> System.out.println(">>>>>>>" + mainMenuItems[2]);
+        // Exit
+        // TODO handle ctrl+c
+        case 3 -> {
           System.out.println("Exiting...");
           isAlive = false;
-          break;
+        }
       }
     }
   }
