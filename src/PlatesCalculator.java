@@ -89,6 +89,10 @@ class Handle extends GymEquipment {
     }
     System.out.println("Total weight: " + getTotalWeigth() + " Kg");
   }
+
+  public String toString() {
+    return "Handle -> " + type + " " + getWeight() + " Kg, Max one sided plates count: " + maxPlatesCountOneSided;
+  }
 }
 
 public class PlatesCalculator {
@@ -99,23 +103,36 @@ public class PlatesCalculator {
     PlatesCalculator calc = new PlatesCalculator();
     boolean isAlive = true;
     String[] mainMenuItems = {
-      "Build Inventory", "Add Handle", "Calculate", "Exit",
+      "Build Plates Inventory", "Add Handle", "View Gear", "Calculate", "Exit",
     };
 
-    Utils.printWelcomeBanner();
     while (isAlive) {
+      System.out.println("--------------------------------------------------------------------------------------------------------------------------------------------------------");
+      System.out.println("""
+        _______  _        _______ _________ _______  _______    _______  _______  _        _______           _        _______ _________ _______  _______ 
+       (  ____ )( \\      (  ___  )\\__   __/(  ____ \\(  ____ \\  (  ____ \\(  ___  )( \\      (  ____ \\|\\     /|( \\      (  ___  )\\__   __/(  ___  )(  ____ )
+       | (    )|| (      | (   ) |   ) (   | (    \\/| (    \\/  | (    \\/| (   ) || (      | (    \\/| )   ( || (      | (   ) |   ) (   | (   ) || (    )|
+       | (____)|| |      | (___) |   | |   | (__    | (_____   | |      | (___) || |      | |      | |   | || |      | (___) |   | |   | |   | || (____)|
+       |  _____)| |      |  ___  |   | |   |  __)   (_____  )  | |      |  ___  || |      | |      | |   | || |      |  ___  |   | |   | |   | ||     __)
+       | (      | |      | (   ) |   | |   | (            ) |  | |      | (   ) || |      | |      | |   | || |      | (   ) |   | |   | |   | || (\\ (   
+       | )      | (____/\\| )   ( |   | |   | (____/\\/\\____) |  | (____/\\| )   ( || (____/\\| (____/\\| (___) || (____/\\| )   ( |   | |   | (___) || ) \\ \\__
+       |/       (_______/|/     \\|   )_(   (_______/\\_______)  (_______/|/     \\|(_______/(_______/(_______)(_______/|/     \\|   )_(   (_______)|/   \\__/
+      """);
+                                                                                                                                                                                                           
       int mainMenuOption = Utils.showMenu("Plates Calculator", mainMenuItems, "Enter a choice number");
 
       switch (mainMenuOption) {
         // Build Inventory
         case 0 -> calc.buildInventory();
-        // TODO Add Handle
-        case 1 -> System.out.println(">>>>>>>" + mainMenuItems[1]);
+        // Add Handle
+        case 1 -> calc.addHandle();
+        // View Gear
+        case 2 -> calc.viewGear();
         // TODO Calculate (Dynamic Programing)
-        case 2 -> System.out.println(">>>>>>>" + mainMenuItems[2]);
+        case 3 -> System.out.println(">>>>>>>" + mainMenuItems[2]);
         // Exit
         // TODO handle ctrl+c
-        case 3 -> {
+        case 4 -> {
           System.out.println("Exiting...");
           isAlive = false;
         }
@@ -132,11 +149,80 @@ public class PlatesCalculator {
   }
 
   private void addHandle() {
-    // TODO complete add handle logic
     boolean isAlive = true;
-    System.out.println("\nAdd your Barbell or Dumbbell:");
+    System.out.println("""                                                                                                              
+        _____   _   _                       _____         _       _ _               ____            _   _       _ _ 
+       |  _  |_| |_| |   _ _ ___ _ _ ___   | __  |___ ___| |_ ___| | |   ___ ___   |    \\ _ _ _____| |_| |_ ___| | |
+       |     | . | . |  | | | . | | |  _|  | __ -| .'|  _| . | -_| | |  | . |  _|  |  |  | | |     | . | . | -_| | |
+       |__|__|___|___|  |_  |___|___|_|    |_____|__,|_| |___|___|_|_|  |___|_|    |____/|___|_|_|_|___|___|___|_|_|
+                        |___|                                                                                       
+    """);
+
+    HandleType handleType = HandleType.BARBELL;
+    String[] handleTypeMenu = {"Barbell", "Dumbbell"};
+    int userInput = Utils.showMenu("What's your handle type?\nA Dumbbell will take twice as the Barbell plates.", handleTypeMenu, "Choose a type");
+
+    if (userInput == 1) {
+     handleType = HandleType.DUMBBELL;
+    }
+
+    double handleWeight = -1.0;
+    while (isAlive) {
+      System.out.print("\nSpecify how much your handle weighs in Kg: ");
+      try {
+        String weight = Utils.getStdin();
+        handleWeight = Double.parseDouble(weight.strip());
+        if (handleWeight <= 0) {
+          System.out.println("[ERROR] Enter a value greater than or equal 1");
+          continue;
+        }
+
+        isAlive = false;
+      } catch (NumberFormatException e) {
+        System.out.println("[ERROR] This isn't a valid number.");
+      }
+    }
+
+    double handleMaxPlates = -1.0;
+    isAlive = true;
+    while (isAlive) {
+      System.out.print("\nSpecify the max plates number you can fit one side of your handle: ");
+      try {
+        String maxPlates = Utils.getStdin();
+        handleMaxPlates = Double.parseDouble(maxPlates.strip());
+        if (handleMaxPlates <= 0) {
+          System.out.println("[ERROR] Enter a value greater than or equal 1");
+          continue;
+        }
+        isAlive = false;
+      } catch (NumberFormatException e) {
+        System.out.println("[ERROR] This isn't a valid number.");
+      }
+    }
+    
+    handle = new Handle(handleType, handleWeight, handleMaxPlates);
+    System.out.println("\nYour handle is added: " + handle);
   }
 
+  private void viewGear() {
+    System.out.println("""                                        
+          __ __                _____             
+         |  |  |___ _ _ ___   |   __|___ ___ ___ 
+         |_   _| . | | |  _|  |  |  | -_| .'|  _|
+           |_| |___|___|_|    |_____|___|__,|_|  
+                                                   
+        """
+    );
+    printInventory();
+    System.out.println("Handle:");
+    if (handle == null) {
+      System.out.println("Handle isn't set yet");
+    } else {
+      System.out.println(handle);
+    }
+
+  }
+    
   private void buildInventory() {
     boolean isAlive = true;
     String[] inventoryMenu = {
@@ -144,6 +230,13 @@ public class PlatesCalculator {
     };
 
     while (isAlive) {
+      System.out.println("""
+          _____     _ _   _    _____ _     _              _____                 _               
+         | __  |_ _|_| |_| |  |  _  | |___| |_ ___ ___   |     |___ _ _ ___ ___| |_ ___ ___ _ _ 
+         | __ -| | | | | . |  |   __| | .'|  _| -_|_ -|  |-   -|   | | | -_|   |  _| . |  _| | |
+         |_____|___|_|_|___|  |__|  |_|__,|_| |___|___|  |_____|_|_|\\_/|___|_|_|_| |___|_| |_  |
+                                                                                           |___|
+      """);
       int userInput =
           Utils.showMenu(
               "Building plates inventory", inventoryMenu, "Enter a choice number");
@@ -225,7 +318,6 @@ public class PlatesCalculator {
       return;
     }
 
-    System.out.println();
     System.out.println("Current plates inventory:");
     for (Plate key : inventory.keySet()) {
       System.out.println(key + " x" + inventory.get(key));
