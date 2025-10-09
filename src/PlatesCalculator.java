@@ -104,6 +104,12 @@ public class PlatesCalculator {
   private Handle handle;
 
   public static void main(String[] args) {
+    // Adding Shutdown Hook
+    Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+      System.out.println("\nAborting...");
+      System.out.flush();
+    }));
+
     PlatesCalculator calc = new PlatesCalculator();
     boolean isAlive = true;
     String[] mainMenuItems = {
@@ -137,7 +143,6 @@ public class PlatesCalculator {
         // TODO Calculate (Dynamic Programing)
         case 3 -> System.out.println(">>>>>>>" + mainMenuItems[2]);
         // Exit
-        // TODO handle ctrl+c
         case 4 -> {
           System.out.println("Exiting...");
           isAlive = false;
@@ -277,6 +282,7 @@ public class PlatesCalculator {
   private void addPlatesToInventory() {
     boolean isAlive = true;
     System.out.println("\nAdd or modify plates. Type 'done' to finish.");
+    
     while (isAlive) {
       System.out.print("\tNew/modify plate (weight Kg,count): ");
       String platesInput = Utils.getStdin();

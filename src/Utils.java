@@ -22,7 +22,13 @@ public class Utils {
 
   public static String getStdin() {
     Scanner s = new Scanner(System.in);
-    return s.nextLine();
+    if (s.hasNextLine()) {
+      return s.nextLine();
+    } else { 
+      s.close();
+      System.exit(0);
+      return null;
+    }
   }
 
   public static double[] parsePlatesEntry(String userInput) throws InvalidInputException {
