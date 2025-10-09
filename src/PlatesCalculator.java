@@ -100,6 +100,8 @@ class Handle extends GymEquipment {
 }
 
 public class PlatesCalculator {
+  // TODO add conitue in Utils after addHandle and buildInventory before exiting.
+ 
   private Map<Plate, Integer> inventory = new HashMap<>();
   private Handle handle;
 
