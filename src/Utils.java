@@ -1,7 +1,25 @@
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Scanner;
 
 public class Utils {
+  public static void clearScreen() {
+    try {
+      if (System.getProperty("os.name").startsWith("Windows")) {
+        new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+      } else {
+        new ProcessBuilder("clear").inheritIO().start().waitFor();
+      }
+    } catch (IOException | InterruptedException e) {
+      e.printStackTrace();
+    }
+  }
+
+  public static void pauseScreen(String prompt) {
+    System.out.print("\n" + prompt);
+    getStdin();
+  }
+
   public static String getStdin() {
     Scanner s = new Scanner(System.in);
     return s.nextLine();
@@ -32,19 +50,6 @@ public class Utils {
     }
 
     return result;
-  }
-
-  public static void printWelcomeBanner() {
-    String banner =
-        """
-            ____  __      __               ______      __           __      __
-           / __ \\/ /___ _/ /____  _____   / ____/___ _/ /______  __/ /___ _/ /_____  _____
-          / /_/ / / __ `/ __/ _ \\/ ___/  / /   / __ `/ / ___/ / / / / __ `/ __/ __ \\/ ___/
-         / ____/ / /_/ / /_/  __(__  )  / /___/ /_/ / / /__/ /_/ / / /_/ / /_/ /_/ / /
-        /_/   /_/\\__,_/\\__/\\___/____/   \\____/\\__,_/_/\\___/\\__,_/_/\\__,_/\\__/\\____/_/
-        """;
-
-    System.out.println(banner);
   }
 
   public static int showMenu(String menuTitle, String[] menuItems, String menuPrompt) {
