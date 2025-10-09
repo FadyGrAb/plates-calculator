@@ -25,7 +25,6 @@ public class Utils {
     if (s.hasNextLine()) {
       return s.nextLine();
     } else { 
-      s.close();
       System.exit(0);
       return null;
     }
