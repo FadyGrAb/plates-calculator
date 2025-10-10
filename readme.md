@@ -9,9 +9,10 @@ Using this CLI tool (CLI for now), all I have to do is enter my plates invetory 
 I'm learning Java and I don't like doing Gym Math!
 
 ## How to run this
+You must have git (duh!) and Java installed on your machine before trying to execute the following commands.
 1. Clone the repo using git
 ```bash
-https://github.com/FadyGrAb/plates-calculator.git
+git clone https://github.com/FadyGrAb/plates-calculator.git
 ```
 2. Get into the `plates-calculator` directory
 ```bash
