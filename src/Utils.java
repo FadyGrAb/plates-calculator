@@ -31,23 +31,24 @@ public class Utils {
     Scanner s = new Scanner(System.in);
     if (s.hasNextLine()) {
       return s.nextLine();
-    } else { 
+    } else {
       System.exit(0);
       return null;
     }
   }
 
   /**
-  * Asks the user a question and return the answer
-  * @param prompt The yes/no question to be asked.
-  * @param defaultAnswer The default answer if the user presses Enter. 
-  * @return Answer YES/NO answer enum.
-  */
+   * Asks the user a question and return the answer
+   *
+   * @param prompt The yes/no question to be asked.
+   * @param defaultAnswer The default answer if the user presses Enter.
+   * @return Answer YES/NO answer enum.
+   */
   public static Answer ask(String prompt, Answer defaultAnswer) {
     String expectedAnswers = " (yes/no): ";
     List yesList = List.of("y", "yes");
     List noList = List.of("n", "no");
-  
+
     if (defaultAnswer == Answer.YES) {
       expectedAnswers = " ([Yes]/no): ";
     }
@@ -61,7 +62,7 @@ public class Utils {
       String userInput = Utils.getStdin().strip();
 
       if (userInput == "" && defaultAnswer != Answer.ANY) {
-          return defaultAnswer;
+        return defaultAnswer;
       }
 
       if (yesList.contains(userInput.toLowerCase())) {
@@ -71,9 +72,8 @@ public class Utils {
       if (noList.contains(userInput.toLowerCase())) {
         return Answer.NO;
       }
-      
-      System.out.println("[ERROR] Not a valid answer. Type yes/y or no/n.");
 
+      System.out.println("[ERROR] Not a valid answer. Type yes/y or no/n.");
     }
   }
 

@@ -1,7 +1,7 @@
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 abstract class GymEquipment {
   private final Double weight;
@@ -19,7 +19,7 @@ abstract class GymEquipment {
   }
 }
 
-class Plate extends GymEquipment {
+class Plate extends GymEquipment implements Comparable {
   public Plate(double weight) {
     super(weight);
   }
@@ -39,6 +39,11 @@ class Plate extends GymEquipment {
 
   public int hashCode() {
     return Double.hashCode(getWeight());
+  }
+
+  public int compareTo(Object o) {
+    Plate other = (Plate) o;
+    return (int) (this.getWeight() - other.getWeight());
   }
 }
 
@@ -100,15 +105,18 @@ class Handle extends GymEquipment {
 }
 
 public class PlatesCalculator {
-  private Map<Plate, Integer> inventory = new HashMap<>();
+  private Map<Plate, Integer> inventory = new TreeMap<>();
   private Handle handle;
 
   public static void main(String[] args) {
     // Adding Shutdown Hook
-    Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-      System.out.println("\nExiting...");
-      System.out.flush();
-    }));
+    Runtime.getRuntime()
+        .addShutdownHook(
+            new Thread(
+                () -> {
+                  System.out.println("\nExiting...");
+                  System.out.flush();
+                }));
 
     PlatesCalculator calc = new PlatesCalculator();
     boolean isAlive = true;
@@ -270,9 +278,9 @@ public class PlatesCalculator {
         case 2 -> printInventory(true);
         // Done
         case 3 -> {
-          System.out.print("\nBuilding Plates inventory is completed.");
+          System.out.println("\nBuilding Plates inventory is completed.");
           printInventory(false);
-          if (Utils.ask("Do you want to retrun to the main menu?", Answer.YES) == Answer.YES) {
+          if (Utils.ask("Do you want to return to the main menu?", Answer.YES) == Answer.YES) {
             isAlive = false;
           }
         }
@@ -283,7 +291,7 @@ public class PlatesCalculator {
   private void addPlatesToInventory() {
     boolean isAlive = true;
     System.out.println("\nAdd or modify plates. Type 'done' to finish.");
-    
+
     while (isAlive) {
       System.out.print("\tNew/modify plate (weight Kg,count): ");
       String platesInput = Utils.getStdin();
@@ -302,8 +310,14 @@ public class PlatesCalculator {
                   + "\tExample: 5,2 // Two 5 Kg plates\n");
         }
       } else {
-        printInventory(true);
-        isAlive = false;
+        printInventory(false);
+        if (Utils.ask(
+                "Do you confirm the entered plates? Enter 'no' to continue adding or modifying"
+                    + " plates.",
+                Answer.YES)
+            == Answer.YES) {
+          isAlive = false;
+        }
       }
     }
   }
@@ -342,7 +356,7 @@ public class PlatesCalculator {
       System.out.println("Plates inventory is empty");
       return;
     }
-    
+
     System.out.println("Current plates inventory:");
     for (Plate key : inventory.keySet()) {
       System.out.println(key + " x" + inventory.get(key));
