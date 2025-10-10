@@ -1,3 +1,6 @@
+> [!IMPORTANT]
+> Please note that I'm still learning Java! So, I'll keep improving this as I learn new stuff! :)
+
 # Plates Calculator
 
 ## What is this?
@@ -28,7 +31,3 @@ javac -d ./build ./src/*.java
 java -cp ./build PlatesCalculator
 ```
 5. Follow the onscreen menus.
-
-> [!IMPORTANT]
-> Please note that I'm still learning Java! So, I'll keep improving this as I learn new stuff! :)
-
