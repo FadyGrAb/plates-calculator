@@ -100,15 +100,13 @@ class Handle extends GymEquipment {
 }
 
 public class PlatesCalculator {
-  // TODO add conitue in Utils after addHandle and buildInventory before exiting.
- 
   private Map<Plate, Integer> inventory = new HashMap<>();
   private Handle handle;
 
   public static void main(String[] args) {
     // Adding Shutdown Hook
     Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-      System.out.println("\nAborting...");
+      System.out.println("\nExiting...");
       System.out.flush();
     }));
 
@@ -146,7 +144,6 @@ public class PlatesCalculator {
         case 3 -> System.out.println(">>>>>>>" + mainMenuItems[2]);
         // Exit
         case 4 -> {
-          System.out.println("Exiting...");
           isAlive = false;
         }
       }
@@ -274,8 +271,10 @@ public class PlatesCalculator {
         // Done
         case 3 -> {
           System.out.print("\nBuilding Plates inventory is completed.");
-          printInventory(true);
-          isAlive = false;
+          printInventory(false);
+          if (Utils.ask("Do you want to retrun to the main menu?", Answer.YES) == Answer.YES) {
+            isAlive = false;
+          }
         }
       }
     }
@@ -303,6 +302,7 @@ public class PlatesCalculator {
                   + "\tExample: 5,2 // Two 5 Kg plates\n");
         }
       } else {
+        printInventory(true);
         isAlive = false;
       }
     }
@@ -342,7 +342,7 @@ public class PlatesCalculator {
       System.out.println("Plates inventory is empty");
       return;
     }
-
+    
     System.out.println("Current plates inventory:");
     for (Plate key : inventory.keySet()) {
       System.out.println(key + " x" + inventory.get(key));

@@ -1,6 +1,13 @@
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
+
+enum Answer {
+  YES,
+  NO,
+  ANY,
+}
 
 public class Utils {
   public static void clearScreen() {
@@ -27,6 +34,46 @@ public class Utils {
     } else { 
       System.exit(0);
       return null;
+    }
+  }
+
+  /**
+  * Asks the user a question and return the answer
+  * @param prompt The yes/no question to be asked.
+  * @param defaultAnswer The default answer if the user presses Enter. 
+  * @return Answer YES/NO answer enum.
+  */
+  public static Answer ask(String prompt, Answer defaultAnswer) {
+    String expectedAnswers = " (yes/no): ";
+    List yesList = List.of("y", "yes");
+    List noList = List.of("n", "no");
+  
+    if (defaultAnswer == Answer.YES) {
+      expectedAnswers = " ([Yes]/no): ";
+    }
+
+    if (defaultAnswer == Answer.NO) {
+      expectedAnswers = " (yes/[No]): ";
+    }
+
+    while (true) {
+      System.out.print(prompt + expectedAnswers);
+      String userInput = Utils.getStdin().strip();
+
+      if (userInput == "" && defaultAnswer != Answer.ANY) {
+          return defaultAnswer;
+      }
+
+      if (yesList.contains(userInput.toLowerCase())) {
+        return Answer.YES;
+      }
+
+      if (noList.contains(userInput.toLowerCase())) {
+        return Answer.NO;
+      }
+      
+      System.out.println("[ERROR] Not a valid answer. Type yes/y or no/n.");
+
     }
   }
 
