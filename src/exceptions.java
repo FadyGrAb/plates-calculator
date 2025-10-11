@@ -10,8 +10,8 @@ class TooManyInputParametersException extends InvalidInputException {
   }
 }
 
-class TooLittleInputParametersException extends InvalidInputException {
-  TooLittleInputParametersException(String msg) {
+class TooFewInputParametersException extends InvalidInputException {
+  TooFewInputParametersException(String msg) {
     super(msg);
   }
 }

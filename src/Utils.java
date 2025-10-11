@@ -82,7 +82,7 @@ public class Utils {
     String[] tokens = userInput.replaceAll(" ", "").split(",");
 
     if (tokens.length < 2) {
-      throw new TooLittleInputParametersException(
+      throw new TooFewInputParametersException(
           "Input paramters are low: " + Arrays.toString(tokens));
     }
 
